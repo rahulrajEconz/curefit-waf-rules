@@ -106,7 +106,7 @@ cross_site_scripting_preview     = true
 cross_site_scripting_description = "Block Cross-Site Scripting (XSS) attacks"
 cross_site_scripting_expression  = "evaluatePreconfiguredWaf('xss-v33-stable')"
 
-method_enforcement_priority    = 60
+method_enforcement_priority    = 50
 method_enforcement_action      = "allow"
 method_enforcement_preview     = true
 method_enforcement_description = "Method Enforcement"
