@@ -93,6 +93,9 @@ lfi_protection_action      = "allow"
 lfi_protection_preview     = true
 lfi_protection_description = "Global LFI Protection (Merged)"
 lfi_protection_expression  = "evaluatePreconfiguredWaf('lfi-v33-stable')"
+
+generic_rfi_priority       = 180
+generic_rfi_action         = "deny(403)"
 generic_rfi_preview        = true
 generic_rfi_description    = "Block Remote File Inclusion attempts"
 generic_rfi_expression     = "evaluatePreconfiguredWaf('rfi-v33-stable')"

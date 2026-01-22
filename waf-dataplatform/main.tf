@@ -217,6 +217,20 @@ resource "google_compute_security_policy_rule" "protocol_attack_protection" {
 ############################################
 # 15. GenericRFI
 ############################################
+resource "google_compute_security_policy_rule" "generic_rfi" {
+  count           = var.enable_generic_rfi ? 1 : 0
+  security_policy = google_compute_security_policy.dataplatform-policy.name
+  priority        = var.generic_rfi_priority
+  action          = var.generic_rfi_action
+  preview         = var.generic_rfi_preview
+  description     = var.generic_rfi_description
+
+  match {
+    expr {
+      expression = var.generic_rfi_expression
+    }
+  }
+}
 
 ############################################
 # 16. CrossSiteScripting
