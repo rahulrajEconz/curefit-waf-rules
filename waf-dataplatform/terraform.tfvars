@@ -94,14 +94,26 @@ lfi_protection_preview     = true
 lfi_protection_description = "Global LFI Protection (Merged)"
 lfi_protection_expression  = "evaluatePreconfiguredWaf('lfi-v33-stable')"
 
-generic_rfi_priority       = 180
-generic_rfi_action         = "deny(403)"
-generic_rfi_preview        = true
-generic_rfi_description    = "Block Remote File Inclusion attempts"
-generic_rfi_expression     = "evaluatePreconfiguredWaf('rfi-v33-stable')"
+generic_rfi_priority    = 180
+generic_rfi_action      = "deny(403)"
+generic_rfi_preview     = true
+generic_rfi_description = "Block Remote File Inclusion attempts"
+generic_rfi_expression  = "evaluatePreconfiguredWaf('rfi-v33-stable')"
 
 cross_site_scripting_priority    = 200
 cross_site_scripting_action      = "allow"
 cross_site_scripting_preview     = true
 cross_site_scripting_description = "Block Cross-Site Scripting (XSS) attacks"
 cross_site_scripting_expression  = "evaluatePreconfiguredWaf('xss-v33-stable')"
+
+method_enforcement_priority    = 60
+method_enforcement_action      = "allow"
+method_enforcement_preview     = true
+method_enforcement_description = "Method Enforcement"
+method_enforcement_expression  = "evaluatePreconfiguredWaf('methodenforcement-v33-stable')"
+
+cve_canary_priority    = 210
+cve_canary_action      = "allow"
+cve_canary_preview     = true
+cve_canary_description = "CVE Canary"
+cve_canary_expression  = "evaluatePreconfiguredExpr('cve-canary')"

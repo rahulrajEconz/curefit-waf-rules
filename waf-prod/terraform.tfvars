@@ -297,3 +297,21 @@ ddos_rate_limit_action      = "deny(403)"
 ddos_rate_limit_preview     = true
 ddos_rate_limit_description = "DDoS Rate Limit"
 ddos_rate_limit_expression  = "has(request.headers['x-forwarded-for'])"
+
+method_enforcement_priority    = 650
+method_enforcement_action      = "deny(403)"
+method_enforcement_preview     = true
+method_enforcement_description = "Method Enforcement"
+method_enforcement_expression  = "evaluatePreconfiguredWaf('methodenforcement-v33-stable')"
+
+cve_canary_priority    = 660
+cve_canary_action      = "deny(403)"
+cve_canary_preview     = true
+cve_canary_description = "CVE Canary"
+cve_canary_expression  = "evaluatePreconfiguredExpr('cve-canary')"
+
+loginotp_foreign_priority    = 670
+loginotp_foreign_action      = "deny(403)"
+loginotp_foreign_preview     = true
+loginotp_foreign_description = "Login OTP Foreign"
+loginotp_foreign_expression  = "!origin.region_code.matches('FR|IN|MV|SA|SG|AE|GB|US|IT') && (request.headers['host'] == 'cultsport.com' || request.headers['host'] == 'sugarfit.com') && (request.path.matches('/api/login/otp') || request.path.matches('^/api/auth/loginPhoneSendOtp'))"

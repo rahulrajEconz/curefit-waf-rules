@@ -242,6 +242,24 @@ variable "enable_ddos_rate_limit" {
   default     = true
 }
 
+variable "enable_method_enforcement" {
+  description = "Enable Method Enforcement rule"
+  type        = bool
+  default     = true
+}
+
+variable "enable_cve_canary" {
+  description = "Enable CVE Canary rule"
+  type        = bool
+  default     = true
+}
+
+variable "enable_loginotp_foreign" {
+  description = "Enable Login OTP Foreign rule"
+  type        = bool
+  default     = true
+}
+
 
 ###########################################
 # Rule Parameters
@@ -605,3 +623,30 @@ variable "ddos_rate_limit_preview" {
 }
 variable "ddos_rate_limit_description" { type = string }
 variable "ddos_rate_limit_expression" { type = string }
+
+variable "method_enforcement_priority" { type = number }
+variable "method_enforcement_action" { type = string }
+variable "method_enforcement_preview" {
+  type    = bool
+  default = true
+}
+variable "method_enforcement_description" { type = string }
+variable "method_enforcement_expression" { type = string }
+
+variable "cve_canary_priority" { type = number }
+variable "cve_canary_action" { type = string }
+variable "cve_canary_preview" {
+  type    = bool
+  default = true
+}
+variable "cve_canary_description" { type = string }
+variable "cve_canary_expression" { type = string }
+
+variable "loginotp_foreign_priority" { type = number }
+variable "loginotp_foreign_action" { type = string }
+variable "loginotp_foreign_preview" {
+  type    = bool
+  default = true
+}
+variable "loginotp_foreign_description" { type = string }
+variable "loginotp_foreign_expression" { type = string }

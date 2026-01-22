@@ -102,3 +102,33 @@ variable "login_otp_expression" { type = string }
 variable "login_otp_count" { type = number }
 variable "login_otp_interval_sec" { type = number }
 variable "login_otp_ban_duration_sec" { type = number }
+
+variable "enable_method_enforcement" {
+  description = "Enable Method Enforcement rule"
+  type        = bool
+  default     = true
+}
+
+variable "enable_cve_canary" {
+  description = "Enable CVE Canary rule"
+  type        = bool
+  default     = true
+}
+
+variable "method_enforcement_priority" { type = number }
+variable "method_enforcement_action" { type = string }
+variable "method_enforcement_preview" {
+  type    = bool
+  default = true
+}
+variable "method_enforcement_description" { type = string }
+variable "method_enforcement_expression" { type = string }
+
+variable "cve_canary_priority" { type = number }
+variable "cve_canary_action" { type = string }
+variable "cve_canary_preview" {
+  type    = bool
+  default = true
+}
+variable "cve_canary_description" { type = string }
+variable "cve_canary_expression" { type = string }

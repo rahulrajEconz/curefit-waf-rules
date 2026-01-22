@@ -250,8 +250,42 @@ resource "google_compute_security_policy_rule" "cross_site_scripting" {
   }
 }
 
+###########################################
+# 18. Method Enforcement – CEL
+###########################################
+resource "google_compute_security_policy_rule" "method_enforcement" {
+  count           = var.enable_method_enforcement ? 1 : 0
+  security_policy = google_compute_security_policy.dataplatform-policy.name
+  priority        = var.method_enforcement_priority
+  action          = var.method_enforcement_action
+  preview         = var.method_enforcement_preview
+  description     = var.method_enforcement_description
+  match {
+    expr {
+      expression = var.method_enforcement_expression
+    }
+  }
+}
+
+###########################################
+# 19. CVE Canary – CEL
+###########################################
+resource "google_compute_security_policy_rule" "cve_canary" {
+  count           = var.enable_cve_canary ? 1 : 0
+  security_policy = google_compute_security_policy.dataplatform-policy.name
+  priority        = var.cve_canary_priority
+  action          = var.cve_canary_action
+  preview         = var.cve_canary_preview
+  description     = var.cve_canary_description
+  match {
+    expr {
+      expression = var.cve_canary_expression
+    }
+  }
+}
+
 ############################################
-# 17. Default deny
+# 20. Default deny
 ############################################
 resource "google_compute_security_policy_rule" "default_deny" {
   security_policy = google_compute_security_policy.dataplatform-policy.name
