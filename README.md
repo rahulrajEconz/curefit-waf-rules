@@ -1,4 +1,4 @@
-# Curefit WAF Terraform (Flattened Architecture)
+# Curefit WAF Terraform 
 
 This repository manages **Google Cloud Armor Security Policies** for various Curefit environments. It uses a flattened architecture where each environment is self-contained.
 
