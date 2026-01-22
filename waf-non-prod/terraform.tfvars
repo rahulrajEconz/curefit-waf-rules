@@ -438,13 +438,13 @@ scanning_tool_ua_2_description = "Scanning Tool UA 2"
 scanning_tool_ua_2_expression  = "has(request.headers['user-agent']) && request.headers['user-agent'].contains('nikto')"
 
 visibility_endpoints_priority    = 630
-visibility_endpoints_action      = "count"
+visibility_endpoints_action      = "deny(403)"
 visibility_endpoints_preview     = true
 visibility_endpoints_description = "Visibility Endpoints"
 visibility_endpoints_expression  = "request.path.matches('/api/visibility/')"
 
 ddos_rate_limit_priority    = 640
-ddos_rate_limit_action      = "count"
+ddos_rate_limit_action      = "deny(403)"
 ddos_rate_limit_preview     = true
 ddos_rate_limit_description = "DDoS Rate Limit"
 ddos_rate_limit_expression  = "has(request.headers['x-forwarded-for'])"

@@ -118,7 +118,7 @@ resource "google_compute_security_policy_rule" "slow_rate_limit_auth" {
   count           = var.enable_slow_rate_limit_auth ? 1 : 0
   security_policy = google_compute_security_policy.prod-webacl.name
   priority        = var.slow_rate_limit_auth_priority
-  action          = "throttle"
+  action          = "rate_based_ban"
   preview         = var.slow_rate_limit_auth_preview
   description     = var.slow_rate_limit_auth_description
   match {
@@ -149,7 +149,7 @@ resource "google_compute_security_policy_rule" "slow_rate_limit_fitness" {
   count           = var.enable_slow_rate_limit_fitness ? 1 : 0
   security_policy = google_compute_security_policy.prod-webacl.name
   priority        = var.slow_rate_limit_fitness_priority
-  action          = "throttle"
+  action          = "rate_based_ban"
   preview         = var.slow_rate_limit_fitness_preview
   description     = var.slow_rate_limit_fitness_description
   match {
@@ -180,7 +180,7 @@ resource "google_compute_security_policy_rule" "slow_rate_limit_cultwatch" {
   count           = var.enable_slow_rate_limit_cultwatch ? 1 : 0
   security_policy = google_compute_security_policy.prod-webacl.name
   priority        = var.slow_rate_limit_cultwatch_priority
-  action          = "throttle"
+  action          = "rate_based_ban"
   preview         = var.slow_rate_limit_cultwatch_preview
   description     = var.slow_rate_limit_cultwatch_description
   match {
@@ -211,7 +211,7 @@ resource "google_compute_security_policy_rule" "slow_rate_limit_account" {
   count           = var.enable_slow_rate_limit_account ? 1 : 0
   security_policy = google_compute_security_policy.prod-webacl.name
   priority        = var.slow_rate_limit_account_priority
-  action          = "throttle"
+  action          = "rate_based_ban"
   preview         = var.slow_rate_limit_account_preview
   description     = var.slow_rate_limit_account_description
   match {
