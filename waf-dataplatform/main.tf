@@ -103,19 +103,18 @@ resource "google_compute_security_policy_rule" "profind_method" {
 }
 
 ###########################################
-# 6. ExploitablePaths_URIPATH
-############################################
-resource "google_compute_security_policy_rule" "exploitable_paths_uripath" {
-  count           = var.enable_exploitable_paths_uripath ? 1 : 0
+# 6-14. LFI Protection
+###########################################
+resource "google_compute_security_policy_rule" "lfi_protection" {
+  count           = var.enable_lfi_protection ? 1 : 0
   security_policy = google_compute_security_policy.dataplatform-policy.name
-  priority        = var.exploitable_paths_uripath_priority
-  action          = var.exploitable_paths_uripath_action
-  preview         = var.exploitable_paths_uripath_preview
-  description     = var.exploitable_paths_uripath_description
-
+  priority        = var.lfi_protection_priority
+  action          = var.lfi_protection_action
+  preview         = var.lfi_protection_preview
+  description     = var.lfi_protection_description
   match {
     expr {
-      expression = var.exploitable_paths_uripath_expression
+      expression = var.lfi_protection_expression
     }
   }
 }
@@ -228,41 +227,6 @@ resource "google_compute_security_policy_rule" "ec2_metadata_ssrf" {
   }
 }
 
-############################################
-# 13. GenericLFI
-############################################
-resource "google_compute_security_policy_rule" "generic_lfi" {
-  count           = var.enable_generic_lfi ? 1 : 0
-  security_policy = google_compute_security_policy.dataplatform-policy.name
-  priority        = var.generic_lfi_priority
-  action          = var.generic_lfi_action
-  preview         = var.generic_lfi_preview
-  description     = var.generic_lfi_description
-
-  match {
-    expr {
-      expression = var.generic_lfi_expression
-    }
-  }
-}
-
-############################################
-# 14. RestrictedExtensions
-############################################
-resource "google_compute_security_policy_rule" "restricted_extensions" {
-  count           = var.enable_restricted_extensions ? 1 : 0
-  security_policy = google_compute_security_policy.dataplatform-policy.name
-  priority        = var.restricted_extensions_priority
-  action          = var.restricted_extensions_action
-  preview         = var.restricted_extensions_preview
-  description     = var.restricted_extensions_description
-
-  match {
-    expr {
-      expression = var.restricted_extensions_expression
-    }
-  }
-}
 
 ############################################
 # 15. GenericRFI

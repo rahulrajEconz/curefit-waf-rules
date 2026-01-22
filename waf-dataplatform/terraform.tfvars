@@ -55,11 +55,11 @@ profind_method_preview     = true
 profind_method_description = "Block PROPFIND HTTP method - COUNT"
 profind_method_expression  = "evaluatePreconfiguredWaf('methodenforcement-v33-stable')"
 
-exploitable_paths_uripath_priority    = 70
-exploitable_paths_uripath_action      = "allow"
-exploitable_paths_uripath_preview     = true
-exploitable_paths_uripath_description = "Block exploitable or sensitive URI paths - COUNT"
-exploitable_paths_uripath_expression  = "evaluatePreconfiguredWaf('lfi-v33-stable')"
+lfi_protection_priority    = 70
+lfi_protection_action      = "allow"
+lfi_protection_preview     = true
+lfi_protection_description = "Global LFI Protection (Merged)"
+lfi_protection_expression  = "evaluatePreconfiguredWaf('lfi-v33-stable')"
 
 reactjs_rce_body_priority    = 90
 reactjs_rce_body_action      = "allow"
@@ -97,17 +97,6 @@ ec2_metadata_ssrf_preview     = true
 ec2_metadata_ssrf_description = "Block SSRF attempts targeting EC2 metadata"
 ec2_metadata_ssrf_expression  = "evaluatePreconfiguredWaf('protocolattack-v33-stable')"
 
-generic_lfi_priority    = 170
-generic_lfi_action      = "allow"
-generic_lfi_preview     = true
-generic_lfi_description = "Block Local File Inclusion attempts"
-generic_lfi_expression  = "evaluatePreconfiguredWaf('lfi-v33-stable')"
-
-restricted_extensions_priority    = 180
-restricted_extensions_action      = "allow"
-restricted_extensions_preview     = true
-restricted_extensions_description = "Block access to restricted file extensions"
-restricted_extensions_expression  = "evaluatePreconfiguredWaf('lfi-v33-stable')"
 
 generic_rfi_priority    = 190
 generic_rfi_action      = "allow"

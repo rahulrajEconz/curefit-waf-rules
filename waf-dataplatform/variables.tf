@@ -43,8 +43,8 @@ variable "enable_profind_method" {
   default     = true
 }
 
-variable "enable_exploitable_paths_uripath" {
-  description = "Enable Exploitable Paths URI Path rule"
+variable "enable_lfi_protection" {
+  description = "Enable Consolidated LFI Protection"
   type        = bool
   default     = true
 }
@@ -85,17 +85,6 @@ variable "enable_ec2_metadata_ssrf" {
   default     = true
 }
 
-variable "enable_generic_lfi" {
-  description = "Enable Generic LFI rule"
-  type        = bool
-  default     = true
-}
-
-variable "enable_restricted_extensions" {
-  description = "Enable Restricted Extensions rule"
-  type        = bool
-  default     = true
-}
 
 variable "enable_generic_rfi" {
   description = "Enable Generic RFI rule"
@@ -158,14 +147,14 @@ variable "profind_method_preview" {
 variable "profind_method_description" { type = string }
 variable "profind_method_expression" { type = string }
 
-variable "exploitable_paths_uripath_priority" { type = number }
-variable "exploitable_paths_uripath_action" { type = string }
-variable "exploitable_paths_uripath_preview" {
+variable "lfi_protection_priority" { type = number }
+variable "lfi_protection_action" { type = string }
+variable "lfi_protection_preview" {
   type    = bool
   default = true
 }
-variable "exploitable_paths_uripath_description" { type = string }
-variable "exploitable_paths_uripath_expression" { type = string }
+variable "lfi_protection_description" { type = string }
+variable "lfi_protection_expression" { type = string }
 
 variable "reactjs_rce_body_priority" { type = number }
 variable "reactjs_rce_body_action" { type = string }
@@ -221,23 +210,6 @@ variable "ec2_metadata_ssrf_preview" {
 variable "ec2_metadata_ssrf_description" { type = string }
 variable "ec2_metadata_ssrf_expression" { type = string }
 
-variable "generic_lfi_priority" { type = number }
-variable "generic_lfi_action" { type = string }
-variable "generic_lfi_preview" {
-  type    = bool
-  default = true
-}
-variable "generic_lfi_description" { type = string }
-variable "generic_lfi_expression" { type = string }
-
-variable "restricted_extensions_priority" { type = number }
-variable "restricted_extensions_action" { type = string }
-variable "restricted_extensions_preview" {
-  type    = bool
-  default = true
-}
-variable "restricted_extensions_description" { type = string }
-variable "restricted_extensions_expression" { type = string }
 
 variable "generic_rfi_priority" { type = number }
 variable "generic_rfi_action" { type = string }

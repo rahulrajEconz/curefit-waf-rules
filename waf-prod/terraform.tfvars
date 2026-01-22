@@ -148,54 +148,10 @@ whitelist_device_id_preview     = true
 whitelist_device_id_description = "Whitelist Device IDs"
 whitelist_device_id_expression  = "has(request.headers['deviceid']) && request.headers['deviceid'].matches('85220BEA-5EFC-4E94-814A-B3E6FD154EB8|ED789368-3B4C-4FF3-8A0D-EBF0FFAB8F08')"
 
-geo_blacklist_1_priority    = 150
-geo_blacklist_1_action      = "allow"
-geo_blacklist_1_preview     = true
-geo_blacklist_1_description = "Blacklist Geo AO"
-geo_blacklist_1_expression  = "origin.region_code == 'AO' && request.headers['host'] == 'cultsport.com'"
-
-geo_blacklist_2_priority    = 160
-geo_blacklist_2_action      = "allow"
-geo_blacklist_2_preview     = true
-geo_blacklist_2_description = "Blacklist Geo AM"
-geo_blacklist_2_expression  = "origin.region_code == 'AM' && request.headers['host'] == 'cultsport.com'"
-
-geo_blacklist_3_priority    = 170
-geo_blacklist_3_action      = "allow"
-geo_blacklist_3_preview     = true
-geo_blacklist_3_description = "Blacklist Geo AZ"
-geo_blacklist_3_expression  = "origin.region_code == 'AZ' && request.headers['host'] == 'cultsport.com'"
-
-geo_blacklist_4_priority    = 180
-geo_blacklist_4_action      = "allow"
-geo_blacklist_4_preview     = true
-geo_blacklist_4_description = "Blacklist Geo CN"
-geo_blacklist_4_expression  = "origin.region_code == 'CN' && request.headers['host'] == 'cultsport.com'"
-
-geo_blacklist_5_priority    = 190
-geo_blacklist_5_action      = "allow"
-geo_blacklist_5_preview     = true
-geo_blacklist_5_description = "Blacklist Geo PS"
-geo_blacklist_5_expression  = "origin.region_code == 'PS' && request.headers['host'] == 'cultsport.com'"
-
-geo_blacklist_6_priority    = 200
-geo_blacklist_6_action      = "allow"
-geo_blacklist_6_preview     = true
-geo_blacklist_6_description = "Blacklist Geo RU"
-geo_blacklist_6_expression  = "origin.region_code == 'RU' && request.headers['host'] == 'cultsport.com'"
-
-geo_blacklist_7_priority    = 210
-geo_blacklist_7_action      = "allow"
-geo_blacklist_7_preview     = true
-geo_blacklist_7_description = "Blacklist Geo UA"
-geo_blacklist_7_expression  = "origin.region_code == 'UA' && request.headers['host'] == 'cultsport.com'"
-
-
-geo_blacklist_8_priority    = 220
-geo_blacklist_8_action      = "allow"
-geo_blacklist_8_preview     = true
-geo_blacklist_8_description = "Blacklist Geo HK"
-geo_blacklist_8_expression  = "origin.region_code == 'HK' && request.headers['host'] == 'cultsport.com'"
+geo_blacklist_cultsport_priority    = 150
+geo_blacklist_cultsport_action      = "allow"
+geo_blacklist_cultsport_preview     = true
+geo_blacklist_cultsport_description = "Blacklist Geo for cultsport.com (Merged)"
 
 uri_excluded_priority    = 230
 uri_excluded_action      = "allow"
@@ -275,101 +231,29 @@ restricted_ext_query_preview     = true
 restricted_ext_query_description = "Block restricted file extensions in query arguments"
 restricted_ext_query_expression  = "evaluatePreconfiguredWaf('lfi-v33-stable')"
 
-generic_rfi_query_priority    = 370
-generic_rfi_query_action      = "deny(403)"
-generic_rfi_query_preview     = true
-generic_rfi_query_description = "Block Generic RFI in query arguments"
-generic_rfi_query_expression  = "evaluatePreconfiguredWaf('rfi-v33-stable')"
+rfi_protection_priority    = 370
+rfi_protection_action      = "deny(403)"
+rfi_protection_preview     = true
+rfi_protection_description = "Global RFI Protection (Merged)"
+rfi_protection_expression  = "evaluatePreconfiguredWaf('rfi-v33-stable')"
 
-generic_rfi_body_priority    = 380
-generic_rfi_body_action      = "deny(403)"
-generic_rfi_body_preview     = true
-generic_rfi_body_description = "Block Generic RFI in request body"
-generic_rfi_body_expression  = "evaluatePreconfiguredWaf('rfi-v33-stable')"
+xss_protection_priority    = 400
+xss_protection_action      = "deny(403)"
+xss_protection_preview     = true
+xss_protection_description = "Global XSS Protection (Merged)"
+xss_protection_expression  = "evaluatePreconfiguredWaf('xss-v33-stable')"
 
-generic_rfi_uri_priority    = 390
-generic_rfi_uri_action      = "deny(403)"
-generic_rfi_uri_preview     = true
-generic_rfi_uri_description = "Block Generic RFI attempts in URI path"
-generic_rfi_uri_expression  = "evaluatePreconfiguredWaf('rfi-v33-stable')"
+sqli_protection_priority    = 440
+sqli_protection_action      = "deny(403)"
+sqli_protection_preview     = true
+sqli_protection_description = "Global SQLi Protection (Merged)"
+sqli_protection_expression  = "evaluatePreconfiguredWaf('sqli-v33-stable')"
 
-xss_cookie_priority    = 400
-xss_cookie_action      = "allow"
-xss_cookie_preview     = true
-xss_cookie_description = "allow XSS attempts in cookies"
-xss_cookie_expression  = "evaluatePreconfiguredWaf('xss-v33-stable')"
-
-xss_query_priority    = 410
-xss_query_action      = "deny(403)"
-xss_query_preview     = true
-xss_query_description = "Block XSS attempts in query arguments"
-xss_query_expression  = "evaluatePreconfiguredWaf('xss-v33-stable')"
-
-xss_body_priority    = 420
-xss_body_action      = "allow"
-xss_body_preview     = true
-xss_body_description = "allow XSS attempts in request body"
-xss_body_expression  = "evaluatePreconfiguredWaf('xss-v33-stable')"
-
-xss_uri_priority    = 430
-xss_uri_action      = "deny(403)"
-xss_uri_preview     = true
-xss_uri_description = "Block XSS attempts in URI path"
-xss_uri_expression  = "evaluatePreconfiguredWaf('xss-v33-stable')"
-
-sqli_ext_query_priority    = 440
-sqli_ext_query_action      = "allow"
-sqli_ext_query_preview     = true
-sqli_ext_query_description = "Allow SQLi extended patterns in query arguments"
-sqli_ext_query_expression  = "evaluatePreconfiguredWaf('sqli-v33-stable')"
-
-sqli_query_priority    = 450
-sqli_query_action      = "allow"
-sqli_query_preview     = true
-sqli_query_description = "Allow SQLi matches in query arguments"
-sqli_query_expression  = "evaluatePreconfiguredWaf('sqli-v33-stable')"
-
-sqli_body_priority    = 460
-sqli_body_action      = "allow"
-sqli_body_preview     = true
-sqli_body_description = "allow SQLi attempts in request body"
-sqli_body_expression  = "evaluatePreconfiguredWaf('sqli-v33-stable')"
-
-sqli_cookie_priority    = 470
-sqli_cookie_action      = "deny(403)"
-sqli_cookie_preview     = true
-sqli_cookie_description = "Block SQLi attempts in cookies"
-sqli_cookie_expression  = "evaluatePreconfiguredWaf('sqli-v33-stable')"
-
-sqli_uri_priority    = 480
-sqli_uri_action      = "deny(403)"
-sqli_uri_preview     = true
-sqli_uri_description = "Block SQLi attempts in URI path"
-sqli_uri_expression  = "evaluatePreconfiguredWaf('sqli-v33-stable')"
-
-java_rce_body_priority    = 490
-java_rce_body_action      = "deny(403)"
-java_rce_body_preview     = true
-java_rce_body_description = "Block Java RCE in request body"
-java_rce_body_expression  = "evaluatePreconfiguredWaf('java-v33-stable')"
-
-java_rce_uri_priority    = 500
-java_rce_uri_action      = "deny(403)"
-java_rce_uri_preview     = true
-java_rce_uri_description = "Block Java RCE in URI path"
-java_rce_uri_expression  = "evaluatePreconfiguredWaf('java-v33-stable')"
-
-java_rce_query_priority    = 510
-java_rce_query_action      = "deny(403)"
-java_rce_query_preview     = true
-java_rce_query_description = "Block Java RCE in query arguments"
-java_rce_query_expression  = "evaluatePreconfiguredWaf('java-v33-stable')"
-
-java_rce_header_priority    = 520
-java_rce_header_action      = "deny(403)"
-java_rce_header_preview     = true
-java_rce_header_description = "Block Java RCE in headers"
-java_rce_header_expression  = "evaluatePreconfiguredWaf('java-v33-stable')"
+java_rce_protection_priority    = 490
+java_rce_protection_action      = "deny(403)"
+java_rce_protection_preview     = true
+java_rce_protection_description = "Global Java RCE Protection (Merged)"
+java_rce_protection_expression  = "evaluatePreconfiguredWaf('java-v33-stable')"
 
 host_localhost_priority    = 530
 host_localhost_action      = "deny(403)"
