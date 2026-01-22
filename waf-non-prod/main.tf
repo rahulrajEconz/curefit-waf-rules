@@ -307,117 +307,67 @@ resource "google_compute_security_policy_rule" "whitelist_device_id" {
   }
 }
 
+resource "google_compute_security_policy_rule" "geo_blacklist_cultsport" {
+  count           = var.enable_geo_blacklist ? 1 : 0
+  security_policy = google_compute_security_policy.non-prod-policy.name
+  priority        = var.geo_blacklist_cultsport_priority
+  action          = var.geo_blacklist_cultsport_action
+  preview         = var.geo_blacklist_cultsport_preview
+  description     = var.geo_blacklist_cultsport_description
+  match {
+    expr {
+      expression = "origin.region_code.matches('AO|AM|AZ|CN|PS|RU|UA|HK') && (request.headers['host'] == 'cultsport.com' || request.headers['host'].matches('.*sugarfit.*') || request.headers['host'].matches('.*Zencare.*'))"
+    }
+  }
+}
+
 ###########################################
-# 12. Geo Blacklist Rules (1-8)
+# 53. Method Enforcement – CEL
 ###########################################
-resource "google_compute_security_policy_rule" "geo_blacklist_1" {
-  count           = var.enable_geo_blacklist ? 1 : 0
+resource "google_compute_security_policy_rule" "method_enforcement" {
+  count           = var.enable_method_enforcement ? 1 : 0
   security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.geo_blacklist_1_priority
-  action          = var.geo_blacklist_1_action
-  preview         = var.geo_blacklist_1_preview
-  description     = var.geo_blacklist_1_description
+  priority        = var.method_enforcement_priority
+  action          = var.method_enforcement_action
+  preview         = var.method_enforcement_preview
+  description     = var.method_enforcement_description
   match {
     expr {
-      expression = var.geo_blacklist_1_expression
+      expression = var.method_enforcement_expression
     }
   }
 }
 
-resource "google_compute_security_policy_rule" "geo_blacklist_2" {
-  count           = var.enable_geo_blacklist ? 1 : 0
+###########################################
+# 54. CVE Canary – CEL
+###########################################
+resource "google_compute_security_policy_rule" "cve_canary" {
+  count           = var.enable_cve_canary ? 1 : 0
   security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.geo_blacklist_2_priority
-  action          = var.geo_blacklist_2_action
-  preview         = var.geo_blacklist_2_preview
-  description     = var.geo_blacklist_2_description
+  priority        = var.cve_canary_priority
+  action          = var.cve_canary_action
+  preview         = var.cve_canary_preview
+  description     = var.cve_canary_description
   match {
     expr {
-      expression = var.geo_blacklist_2_expression
+      expression = var.cve_canary_expression
     }
   }
 }
 
-resource "google_compute_security_policy_rule" "geo_blacklist_3" {
-  count           = var.enable_geo_blacklist ? 1 : 0
+###########################################
+# 55. Login OTP Foreign – CEL
+###########################################
+resource "google_compute_security_policy_rule" "loginotp_foreign" {
+  count           = var.enable_loginotp_foreign ? 1 : 0
   security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.geo_blacklist_3_priority
-  action          = var.geo_blacklist_3_action
-  preview         = var.geo_blacklist_3_preview
-  description     = var.geo_blacklist_3_description
+  priority        = var.loginotp_foreign_priority
+  action          = var.loginotp_foreign_action
+  preview         = var.loginotp_foreign_preview
+  description     = var.loginotp_foreign_description
   match {
     expr {
-      expression = var.geo_blacklist_3_expression
-    }
-  }
-}
-
-resource "google_compute_security_policy_rule" "geo_blacklist_4" {
-  count           = var.enable_geo_blacklist ? 1 : 0
-  security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.geo_blacklist_4_priority
-  action          = var.geo_blacklist_4_action
-  preview         = var.geo_blacklist_4_preview
-  description     = var.geo_blacklist_4_description
-  match {
-    expr {
-      expression = var.geo_blacklist_4_expression
-    }
-  }
-}
-
-resource "google_compute_security_policy_rule" "geo_blacklist_5" {
-  count           = var.enable_geo_blacklist ? 1 : 0
-  security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.geo_blacklist_5_priority
-  action          = var.geo_blacklist_5_action
-  preview         = var.geo_blacklist_5_preview
-  description     = var.geo_blacklist_5_description
-  match {
-    expr {
-      expression = var.geo_blacklist_5_expression
-    }
-  }
-}
-
-resource "google_compute_security_policy_rule" "geo_blacklist_6" {
-  count           = var.enable_geo_blacklist ? 1 : 0
-  security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.geo_blacklist_6_priority
-  action          = var.geo_blacklist_6_action
-  preview         = var.geo_blacklist_6_preview
-  description     = var.geo_blacklist_6_description
-  match {
-    expr {
-      expression = var.geo_blacklist_6_expression
-    }
-  }
-}
-
-resource "google_compute_security_policy_rule" "geo_blacklist_7" {
-  count           = var.enable_geo_blacklist ? 1 : 0
-  security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.geo_blacklist_7_priority
-  action          = var.geo_blacklist_7_action
-  preview         = var.geo_blacklist_7_preview
-  description     = var.geo_blacklist_7_description
-  match {
-    expr {
-      expression = var.geo_blacklist_7_expression
-    }
-  }
-}
-
-resource "google_compute_security_policy_rule" "geo_blacklist_8" {
-  count           = var.enable_geo_blacklist ? 1 : 0
-  security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.geo_blacklist_8_priority
-  action          = var.geo_blacklist_8_action
-  preview         = var.geo_blacklist_8_preview
-  description     = var.geo_blacklist_8_description
-  match {
-    expr {
-      expression = var.geo_blacklist_8_expression
+      expression = var.loginotp_foreign_expression
     }
   }
 }
@@ -567,77 +517,18 @@ resource "google_compute_security_policy_rule" "ec2_ssrf" {
 }
 
 ###########################################
-# 21-23. Generic LFI attacks
+# 21. Consolidated LFI Protection
 ###########################################
-resource "google_compute_security_policy_rule" "generic_lfi" {
-  count           = var.enable_generic_lfi ? 1 : 0
+resource "google_compute_security_policy_rule" "lfi_protection" {
+  count           = var.enable_lfi_protection ? 1 : 0
   security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.generic_lfi_priority
-  action          = var.generic_lfi_action
-  preview         = var.generic_lfi_preview
-  description     = var.generic_lfi_description
+  priority        = var.lfi_protection_priority
+  action          = var.lfi_protection_action
+  preview         = var.lfi_protection_preview
+  description     = var.lfi_protection_description
   match {
     expr {
-      expression = var.generic_lfi_expression
-    }
-  }
-}
-
-resource "google_compute_security_policy_rule" "generic_lfi_uripath" {
-  count           = var.enable_generic_lfi ? 1 : 0
-  security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.generic_lfi_uripath_priority
-  action          = var.generic_lfi_uripath_action
-  preview         = var.generic_lfi_uripath_preview
-  description     = var.generic_lfi_uripath_description
-  match {
-    expr {
-      expression = var.generic_lfi_uripath_expression
-    }
-  }
-}
-
-resource "google_compute_security_policy_rule" "generic_lfi_body" {
-  count           = var.enable_generic_lfi ? 1 : 0
-  security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.generic_lfi_body_priority
-  action          = var.generic_lfi_body_action
-  preview         = var.generic_lfi_body_preview
-  description     = var.generic_lfi_body_description
-  match {
-    expr {
-      expression = var.generic_lfi_body_expression
-    }
-  }
-}
-
-###########################################
-# 24-25. Restricted File Extensions
-###########################################
-resource "google_compute_security_policy_rule" "restricted_ext_uripath" {
-  count           = var.enable_restricted_ext ? 1 : 0
-  security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.restricted_ext_uripath_priority
-  action          = var.restricted_ext_uripath_action
-  preview         = var.restricted_ext_uripath_preview
-  description     = var.restricted_ext_uripath_description
-  match {
-    expr {
-      expression = var.restricted_ext_uripath_expression
-    }
-  }
-}
-
-resource "google_compute_security_policy_rule" "restricted_ext_query" {
-  count           = var.enable_restricted_ext ? 1 : 0
-  security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.restricted_ext_query_priority
-  action          = var.restricted_ext_query_action
-  preview         = var.restricted_ext_query_preview
-  description     = var.restricted_ext_query_description
-  match {
-    expr {
-      expression = var.restricted_ext_query_expression
+      expression = var.lfi_protection_expression
     }
   }
 }
@@ -645,44 +536,16 @@ resource "google_compute_security_policy_rule" "restricted_ext_query" {
 ###########################################
 # 26-28. Generic RFI
 ###########################################
-resource "google_compute_security_policy_rule" "generic_rfi_query" {
+resource "google_compute_security_policy_rule" "rfi_protection" {
   count           = var.enable_generic_rfi ? 1 : 0
   security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.generic_rfi_query_priority
-  action          = var.generic_rfi_query_action
-  preview         = var.generic_rfi_query_preview
-  description     = var.generic_rfi_query_description
+  priority        = var.rfi_protection_priority
+  action          = var.rfi_protection_action
+  preview         = var.rfi_protection_preview
+  description     = var.rfi_protection_description
   match {
     expr {
-      expression = var.generic_rfi_query_expression
-    }
-  }
-}
-
-resource "google_compute_security_policy_rule" "generic_rfi_body" {
-  count           = var.enable_generic_rfi ? 1 : 0
-  security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.generic_rfi_body_priority
-  action          = var.generic_rfi_body_action
-  preview         = var.generic_rfi_body_preview
-  description     = var.generic_rfi_body_description
-  match {
-    expr {
-      expression = var.generic_rfi_body_expression
-    }
-  }
-}
-
-resource "google_compute_security_policy_rule" "generic_rfi_uri" {
-  count           = var.enable_generic_rfi ? 1 : 0
-  security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.generic_rfi_uri_priority
-  action          = var.generic_rfi_uri_action
-  preview         = var.generic_rfi_uri_preview
-  description     = var.generic_rfi_uri_description
-  match {
-    expr {
-      expression = var.generic_rfi_uri_expression
+      expression = var.rfi_protection_expression
     }
   }
 }
@@ -690,58 +553,16 @@ resource "google_compute_security_policy_rule" "generic_rfi_uri" {
 ###########################################
 # 29-32. Cross Site Scripting
 ###########################################
-resource "google_compute_security_policy_rule" "xss_cookie" {
+resource "google_compute_security_policy_rule" "xss_protection" {
   count           = var.enable_xss ? 1 : 0
   security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.xss_cookie_priority
-  action          = var.xss_cookie_action
-  preview         = var.xss_cookie_preview
-  description     = var.xss_cookie_description
+  priority        = var.xss_protection_priority
+  action          = var.xss_protection_action
+  preview         = var.xss_protection_preview
+  description     = var.xss_protection_description
   match {
     expr {
-      expression = var.xss_cookie_expression
-    }
-  }
-}
-
-resource "google_compute_security_policy_rule" "xss_query" {
-  count           = var.enable_xss ? 1 : 0
-  security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.xss_query_priority
-  action          = var.xss_query_action
-  preview         = var.xss_query_preview
-  description     = var.xss_query_description
-  match {
-    expr {
-      expression = var.xss_query_expression
-    }
-  }
-}
-
-resource "google_compute_security_policy_rule" "xss_body" {
-  count           = var.enable_xss ? 1 : 0
-  security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.xss_body_priority
-  action          = var.xss_body_action
-  preview         = var.xss_body_preview
-  description     = var.xss_body_description
-  match {
-    expr {
-      expression = var.xss_body_expression
-    }
-  }
-}
-
-resource "google_compute_security_policy_rule" "xss_uri" {
-  count           = var.enable_xss ? 1 : 0
-  security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.xss_uri_priority
-  action          = var.xss_uri_action
-  preview         = var.xss_uri_preview
-  description     = var.xss_uri_description
-  match {
-    expr {
-      expression = var.xss_uri_expression
+      expression = var.xss_protection_expression
     }
   }
 }
@@ -749,72 +570,16 @@ resource "google_compute_security_policy_rule" "xss_uri" {
 ###########################################
 # 33-37. SQLi
 ###########################################
-resource "google_compute_security_policy_rule" "sqli_ext_query" {
+resource "google_compute_security_policy_rule" "sqli_protection" {
   count           = var.enable_sqli ? 1 : 0
   security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.sqli_ext_query_priority
-  action          = var.sqli_ext_query_action
-  preview         = var.sqli_ext_query_preview
-  description     = var.sqli_ext_query_description
+  priority        = var.sqli_protection_priority
+  action          = var.sqli_protection_action
+  preview         = var.sqli_protection_preview
+  description     = var.sqli_protection_description
   match {
     expr {
-      expression = var.sqli_ext_query_expression
-    }
-  }
-}
-
-resource "google_compute_security_policy_rule" "sqli_query" {
-  count           = var.enable_sqli ? 1 : 0
-  security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.sqli_query_priority
-  action          = var.sqli_query_action
-  preview         = var.sqli_query_preview
-  description     = var.sqli_query_description
-  match {
-    expr {
-      expression = var.sqli_query_expression
-    }
-  }
-}
-
-resource "google_compute_security_policy_rule" "sqli_body" {
-  count           = var.enable_sqli ? 1 : 0
-  security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.sqli_body_priority
-  action          = var.sqli_body_action
-  preview         = var.sqli_body_preview
-  description     = var.sqli_body_description
-  match {
-    expr {
-      expression = var.sqli_body_expression
-    }
-  }
-}
-
-resource "google_compute_security_policy_rule" "sqli_cookie" {
-  count           = var.enable_sqli ? 1 : 0
-  security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.sqli_cookie_priority
-  action          = var.sqli_cookie_action
-  preview         = var.sqli_cookie_preview
-  description     = var.sqli_cookie_description
-  match {
-    expr {
-      expression = var.sqli_cookie_expression
-    }
-  }
-}
-
-resource "google_compute_security_policy_rule" "sqli_uri" {
-  count           = var.enable_sqli ? 1 : 0
-  security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.sqli_uri_priority
-  action          = var.sqli_uri_action
-  preview         = var.sqli_uri_preview
-  description     = var.sqli_uri_description
-  match {
-    expr {
-      expression = var.sqli_uri_expression
+      expression = var.sqli_protection_expression
     }
   }
 }
@@ -822,58 +587,16 @@ resource "google_compute_security_policy_rule" "sqli_uri" {
 ###########################################
 # 38-41. Java Deserialization RCE
 ###########################################
-resource "google_compute_security_policy_rule" "java_rce_body" {
+resource "google_compute_security_policy_rule" "java_rce_protection" {
   count           = var.enable_java_deserialization ? 1 : 0
   security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.java_rce_body_priority
-  action          = var.java_rce_body_action
-  preview         = var.java_rce_body_preview
-  description     = var.java_rce_body_description
+  priority        = var.java_rce_protection_priority
+  action          = var.java_rce_protection_action
+  preview         = var.java_rce_protection_preview
+  description     = var.java_rce_protection_description
   match {
     expr {
-      expression = var.java_rce_body_expression
-    }
-  }
-}
-
-resource "google_compute_security_policy_rule" "java_rce_uri" {
-  count           = var.enable_java_deserialization ? 1 : 0
-  security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.java_rce_uri_priority
-  action          = var.java_rce_uri_action
-  preview         = var.java_rce_uri_preview
-  description     = var.java_rce_uri_description
-  match {
-    expr {
-      expression = var.java_rce_uri_expression
-    }
-  }
-}
-
-resource "google_compute_security_policy_rule" "java_rce_query" {
-  count           = var.enable_java_deserialization ? 1 : 0
-  security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.java_rce_query_priority
-  action          = var.java_rce_query_action
-  preview         = var.java_rce_query_preview
-  description     = var.java_rce_query_description
-  match {
-    expr {
-      expression = var.java_rce_query_expression
-    }
-  }
-}
-
-resource "google_compute_security_policy_rule" "java_rce_header" {
-  count           = var.enable_java_deserialization ? 1 : 0
-  security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.java_rce_header_priority
-  action          = var.java_rce_header_action
-  preview         = var.java_rce_header_preview
-  description     = var.java_rce_header_description
-  match {
-    expr {
-      expression = var.java_rce_header_expression
+      expression = var.java_rce_protection_expression
     }
   }
 }
@@ -950,23 +673,6 @@ resource "google_compute_security_policy_rule" "scanner_detection" {
   }
 }
 
-###########################################
-# 46. LFI – URI Path / Query String / Header
-###########################################
-resource "google_compute_security_policy_rule" "lfi_root" {
-  count           = var.enable_lfi_root ? 1 : 0
-  security_policy = google_compute_security_policy.non-prod-policy.name
-  priority        = var.lfi_priority
-  action          = var.lfi_action
-  preview         = var.lfi_preview
-  description     = var.lfi_description
-
-  match {
-    expr {
-      expression = var.lfi_expression
-    }
-  }
-}
 
 ###########################################
 # 47. Invoice-Ratelimit – URI Path

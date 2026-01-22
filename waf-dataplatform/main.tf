@@ -66,23 +66,6 @@ resource "google_compute_security_policy_rule" "java_deserialization" {
   }
 }
 
-###########################################
-# 4. Host_localhost_HEADER
-############################################
-resource "google_compute_security_policy_rule" "localhost_header" {
-  count           = var.enable_localhost_header ? 1 : 0
-  security_policy = google_compute_security_policy.dataplatform-policy.name
-  priority        = var.localhost_header_priority
-  action          = var.localhost_HEADER_action
-  preview         = var.localhost_header_preview
-  description     = var.localhost_header_description
-
-  match {
-    expr {
-      expression = var.localhost_header_expression
-    }
-  }
-}
 
 ###########################################
 # 5. PROPFIND_METHOD
@@ -103,19 +86,21 @@ resource "google_compute_security_policy_rule" "profind_method" {
 }
 
 ###########################################
-# 6. ExploitablePaths_URIPATH
-############################################
-resource "google_compute_security_policy_rule" "exploitable_paths_uripath" {
-  count           = var.enable_exploitable_paths_uripath ? 1 : 0
+# 6-14. LFI Protection
+###########################################
+###########################################
+# 6-14. LFI Protection
+###########################################
+resource "google_compute_security_policy_rule" "lfi_protection" {
+  count           = var.enable_lfi_protection ? 1 : 0
   security_policy = google_compute_security_policy.dataplatform-policy.name
-  priority        = var.exploitable_paths_uripath_priority
-  action          = var.exploitable_paths_uripath_action
-  preview         = var.exploitable_paths_uripath_preview
-  description     = var.exploitable_paths_uripath_description
-
+  priority        = var.lfi_protection_priority
+  action          = var.lfi_protection_action
+  preview         = var.lfi_protection_preview
+  description     = var.lfi_protection_description
   match {
     expr {
-      expression = var.exploitable_paths_uripath_expression
+      expression = var.lfi_protection_expression
     }
   }
 }
@@ -211,58 +196,23 @@ resource "google_compute_security_policy_rule" "sizerestrictions_uripath" {
 }
 
 ############################################
-# 12. EC2MetaDataSSRF
+# 12. Protocol Attack Protection (Merged)
 ############################################
-resource "google_compute_security_policy_rule" "ec2_metadata_ssrf" {
-  count           = var.enable_ec2_metadata_ssrf ? 1 : 0
+resource "google_compute_security_policy_rule" "protocol_attack_protection" {
+  count           = var.enable_protocol_attack_protection ? 1 : 0
   security_policy = google_compute_security_policy.dataplatform-policy.name
-  priority        = var.ec2_metadata_ssrf_priority
-  action          = var.ec2_metadata_ssrf_action
-  preview         = var.ec2_metadata_ssrf_preview
-  description     = var.ec2_metadata_ssrf_description
+  priority        = var.protocol_attack_protection_priority
+  action          = var.protocol_attack_protection_action
+  preview         = var.protocol_attack_protection_preview
+  description     = var.protocol_attack_protection_description
 
   match {
     expr {
-      expression = var.ec2_metadata_ssrf_expression
+      expression = var.protocol_attack_protection_expression
     }
   }
 }
 
-############################################
-# 13. GenericLFI
-############################################
-resource "google_compute_security_policy_rule" "generic_lfi" {
-  count           = var.enable_generic_lfi ? 1 : 0
-  security_policy = google_compute_security_policy.dataplatform-policy.name
-  priority        = var.generic_lfi_priority
-  action          = var.generic_lfi_action
-  preview         = var.generic_lfi_preview
-  description     = var.generic_lfi_description
-
-  match {
-    expr {
-      expression = var.generic_lfi_expression
-    }
-  }
-}
-
-############################################
-# 14. RestrictedExtensions
-############################################
-resource "google_compute_security_policy_rule" "restricted_extensions" {
-  count           = var.enable_restricted_extensions ? 1 : 0
-  security_policy = google_compute_security_policy.dataplatform-policy.name
-  priority        = var.restricted_extensions_priority
-  action          = var.restricted_extensions_action
-  preview         = var.restricted_extensions_preview
-  description     = var.restricted_extensions_description
-
-  match {
-    expr {
-      expression = var.restricted_extensions_expression
-    }
-  }
-}
 
 ############################################
 # 15. GenericRFI
@@ -300,8 +250,42 @@ resource "google_compute_security_policy_rule" "cross_site_scripting" {
   }
 }
 
+###########################################
+# 18. Method Enforcement – CEL
+###########################################
+resource "google_compute_security_policy_rule" "method_enforcement" {
+  count           = var.enable_method_enforcement ? 1 : 0
+  security_policy = google_compute_security_policy.dataplatform-policy.name
+  priority        = var.method_enforcement_priority
+  action          = var.method_enforcement_action
+  preview         = var.method_enforcement_preview
+  description     = var.method_enforcement_description
+  match {
+    expr {
+      expression = var.method_enforcement_expression
+    }
+  }
+}
+
+###########################################
+# 19. CVE Canary – CEL
+###########################################
+resource "google_compute_security_policy_rule" "cve_canary" {
+  count           = var.enable_cve_canary ? 1 : 0
+  security_policy = google_compute_security_policy.dataplatform-policy.name
+  priority        = var.cve_canary_priority
+  action          = var.cve_canary_action
+  preview         = var.cve_canary_preview
+  description     = var.cve_canary_description
+  match {
+    expr {
+      expression = var.cve_canary_expression
+    }
+  }
+}
+
 ############################################
-# 17. Default deny
+# 20. Default deny
 ############################################
 resource "google_compute_security_policy_rule" "default_deny" {
   security_policy = google_compute_security_policy.dataplatform-policy.name

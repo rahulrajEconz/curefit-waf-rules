@@ -151,14 +151,8 @@ variable "enable_ec2_ssrf" {
   default     = true
 }
 
-variable "enable_generic_lfi" {
-  description = "Enable Generic LFI rules"
-  type        = bool
-  default     = true
-}
-
-variable "enable_restricted_ext" {
-  description = "Enable Restricted Extensions rules"
+variable "enable_lfi_protection" {
+  description = "Enable Consolidated LFI Protection rules"
   type        = bool
   default     = true
 }
@@ -211,11 +205,6 @@ variable "enable_scanner_detection" {
   default     = true
 }
 
-variable "enable_lfi_root" {
-  description = "Enable LFI Root rule"
-  type        = bool
-  default     = true
-}
 
 variable "enable_invoice_ratelimit" {
   description = "Enable Invoice Ratelimit rule"
@@ -249,6 +238,24 @@ variable "enable_visibility_endpoints" {
 
 variable "enable_ddos_rate_limit" {
   description = "Enable DDoS Rate Limit rule"
+  type        = bool
+  default     = true
+}
+
+variable "enable_method_enforcement" {
+  description = "Enable Method Enforcement rule"
+  type        = bool
+  default     = true
+}
+
+variable "enable_cve_canary" {
+  description = "Enable CVE Canary rule"
+  type        = bool
+  default     = true
+}
+
+variable "enable_loginotp_foreign" {
+  description = "Enable Login OTP Foreign rule"
   type        = bool
   default     = true
 }
@@ -392,77 +399,13 @@ variable "whitelist_device_id_preview" {
 variable "whitelist_device_id_description" { type = string }
 variable "whitelist_device_id_expression" { type = string }
 
-variable "geo_blacklist_1_priority" { type = number }
-variable "geo_blacklist_1_action" { type = string }
-variable "geo_blacklist_1_preview" {
+variable "geo_blacklist_cultsport_priority" { type = number }
+variable "geo_blacklist_cultsport_action" { type = string }
+variable "geo_blacklist_cultsport_preview" {
   type    = bool
   default = true
 }
-variable "geo_blacklist_1_description" { type = string }
-variable "geo_blacklist_1_expression" { type = string }
-
-variable "geo_blacklist_2_priority" { type = number }
-variable "geo_blacklist_2_action" { type = string }
-variable "geo_blacklist_2_preview" {
-  type    = bool
-  default = true
-}
-variable "geo_blacklist_2_description" { type = string }
-variable "geo_blacklist_2_expression" { type = string }
-
-variable "geo_blacklist_3_priority" { type = number }
-variable "geo_blacklist_3_action" { type = string }
-variable "geo_blacklist_3_preview" {
-  type    = bool
-  default = true
-}
-variable "geo_blacklist_3_description" { type = string }
-variable "geo_blacklist_3_expression" { type = string }
-
-variable "geo_blacklist_4_priority" { type = number }
-variable "geo_blacklist_4_action" { type = string }
-variable "geo_blacklist_4_preview" {
-  type    = bool
-  default = true
-}
-variable "geo_blacklist_4_description" { type = string }
-variable "geo_blacklist_4_expression" { type = string }
-
-variable "geo_blacklist_5_priority" { type = number }
-variable "geo_blacklist_5_action" { type = string }
-variable "geo_blacklist_5_preview" {
-  type    = bool
-  default = true
-}
-variable "geo_blacklist_5_description" { type = string }
-variable "geo_blacklist_5_expression" { type = string }
-
-variable "geo_blacklist_6_priority" { type = number }
-variable "geo_blacklist_6_action" { type = string }
-variable "geo_blacklist_6_preview" {
-  type    = bool
-  default = true
-}
-variable "geo_blacklist_6_description" { type = string }
-variable "geo_blacklist_6_expression" { type = string }
-
-variable "geo_blacklist_7_priority" { type = number }
-variable "geo_blacklist_7_action" { type = string }
-variable "geo_blacklist_7_preview" {
-  type    = bool
-  default = true
-}
-variable "geo_blacklist_7_description" { type = string }
-variable "geo_blacklist_7_expression" { type = string }
-
-variable "geo_blacklist_8_priority" { type = number }
-variable "geo_blacklist_8_action" { type = string }
-variable "geo_blacklist_8_preview" {
-  type    = bool
-  default = true
-}
-variable "geo_blacklist_8_description" { type = string }
-variable "geo_blacklist_8_expression" { type = string }
+variable "geo_blacklist_cultsport_description" { type = string }
 
 variable "uri_excluded_priority" { type = number }
 variable "uri_excluded_action" { type = string }
@@ -536,194 +479,50 @@ variable "ec2_ssrf_preview" {
 variable "ec2_ssrf_description" { type = string }
 variable "ec2_ssrf_expression" { type = string }
 
-variable "generic_lfi_priority" { type = number }
-variable "generic_lfi_action" { type = string }
-variable "generic_lfi_preview" {
+variable "lfi_protection_priority" { type = number }
+variable "lfi_protection_action" { type = string }
+variable "lfi_protection_preview" {
   type    = bool
   default = true
 }
-variable "generic_lfi_description" { type = string }
-variable "generic_lfi_expression" { type = string }
+variable "lfi_protection_description" { type = string }
+variable "lfi_protection_expression" { type = string }
 
-variable "generic_lfi_uripath_priority" { type = number }
-variable "generic_lfi_uripath_action" { type = string }
-variable "generic_lfi_uripath_preview" {
+variable "rfi_protection_priority" { type = number }
+variable "rfi_protection_action" { type = string }
+variable "rfi_protection_preview" {
   type    = bool
   default = true
 }
-variable "generic_lfi_uripath_description" { type = string }
-variable "generic_lfi_uripath_expression" { type = string }
+variable "rfi_protection_description" { type = string }
+variable "rfi_protection_expression" { type = string }
 
-variable "generic_lfi_body_priority" { type = number }
-variable "generic_lfi_body_action" { type = string }
-variable "generic_lfi_body_preview" {
+variable "xss_protection_priority" { type = number }
+variable "xss_protection_action" { type = string }
+variable "xss_protection_preview" {
   type    = bool
   default = true
 }
-variable "generic_lfi_body_description" { type = string }
-variable "generic_lfi_body_expression" { type = string }
+variable "xss_protection_description" { type = string }
+variable "xss_protection_expression" { type = string }
 
-variable "restricted_ext_uripath_priority" { type = number }
-variable "restricted_ext_uripath_action" { type = string }
-variable "restricted_ext_uripath_preview" {
+variable "sqli_protection_priority" { type = number }
+variable "sqli_protection_action" { type = string }
+variable "sqli_protection_preview" {
   type    = bool
   default = true
 }
-variable "restricted_ext_uripath_description" { type = string }
-variable "restricted_ext_uripath_expression" { type = string }
+variable "sqli_protection_description" { type = string }
+variable "sqli_protection_expression" { type = string }
 
-variable "restricted_ext_query_priority" { type = number }
-variable "restricted_ext_query_action" { type = string }
-variable "restricted_ext_query_preview" {
+variable "java_rce_protection_priority" { type = number }
+variable "java_rce_protection_action" { type = string }
+variable "java_rce_protection_preview" {
   type    = bool
   default = true
 }
-variable "restricted_ext_query_description" { type = string }
-variable "restricted_ext_query_expression" { type = string }
-
-variable "generic_rfi_query_priority" { type = number }
-variable "generic_rfi_query_action" { type = string }
-variable "generic_rfi_query_preview" {
-  type    = bool
-  default = true
-}
-variable "generic_rfi_query_description" { type = string }
-variable "generic_rfi_query_expression" { type = string }
-
-variable "generic_rfi_body_priority" { type = number }
-variable "generic_rfi_body_action" { type = string }
-variable "generic_rfi_body_preview" {
-  type    = bool
-  default = true
-}
-variable "generic_rfi_body_description" { type = string }
-variable "generic_rfi_body_expression" { type = string }
-
-variable "generic_rfi_uri_priority" { type = number }
-variable "generic_rfi_uri_action" { type = string }
-variable "generic_rfi_uri_preview" {
-  type    = bool
-  default = true
-}
-variable "generic_rfi_uri_description" { type = string }
-variable "generic_rfi_uri_expression" { type = string }
-
-variable "xss_cookie_priority" { type = number }
-variable "xss_cookie_action" { type = string }
-variable "xss_cookie_preview" {
-  type    = bool
-  default = true
-}
-variable "xss_cookie_description" { type = string }
-variable "xss_cookie_expression" { type = string }
-
-variable "xss_query_priority" { type = number }
-variable "xss_query_action" { type = string }
-variable "xss_query_preview" {
-  type    = bool
-  default = true
-}
-variable "xss_query_description" { type = string }
-variable "xss_query_expression" { type = string }
-
-variable "xss_body_priority" { type = number }
-variable "xss_body_action" { type = string }
-variable "xss_body_preview" {
-  type    = bool
-  default = true
-}
-variable "xss_body_description" { type = string }
-variable "xss_body_expression" { type = string }
-
-variable "xss_uri_priority" { type = number }
-variable "xss_uri_action" { type = string }
-variable "xss_uri_preview" {
-  type    = bool
-  default = true
-}
-variable "xss_uri_description" { type = string }
-variable "xss_uri_expression" { type = string }
-
-variable "sqli_ext_query_priority" { type = number }
-variable "sqli_ext_query_action" { type = string }
-variable "sqli_ext_query_preview" {
-  type    = bool
-  default = true
-}
-variable "sqli_ext_query_description" { type = string }
-variable "sqli_ext_query_expression" { type = string }
-
-variable "sqli_query_priority" { type = number }
-variable "sqli_query_action" { type = string }
-variable "sqli_query_preview" {
-  type    = bool
-  default = true
-}
-variable "sqli_query_description" { type = string }
-variable "sqli_query_expression" { type = string }
-
-variable "sqli_body_priority" { type = number }
-variable "sqli_body_action" { type = string }
-variable "sqli_body_preview" {
-  type    = bool
-  default = true
-}
-variable "sqli_body_description" { type = string }
-variable "sqli_body_expression" { type = string }
-
-variable "sqli_cookie_priority" { type = number }
-variable "sqli_cookie_action" { type = string }
-variable "sqli_cookie_preview" {
-  type    = bool
-  default = true
-}
-variable "sqli_cookie_description" { type = string }
-variable "sqli_cookie_expression" { type = string }
-
-variable "sqli_uri_priority" { type = number }
-variable "sqli_uri_action" { type = string }
-variable "sqli_uri_preview" {
-  type    = bool
-  default = true
-}
-variable "sqli_uri_description" { type = string }
-variable "sqli_uri_expression" { type = string }
-
-variable "java_rce_body_priority" { type = number }
-variable "java_rce_body_action" { type = string }
-variable "java_rce_body_preview" {
-  type    = bool
-  default = true
-}
-variable "java_rce_body_description" { type = string }
-variable "java_rce_body_expression" { type = string }
-
-variable "java_rce_uri_priority" { type = number }
-variable "java_rce_uri_action" { type = string }
-variable "java_rce_uri_preview" {
-  type    = bool
-  default = true
-}
-variable "java_rce_uri_description" { type = string }
-variable "java_rce_uri_expression" { type = string }
-
-variable "java_rce_query_priority" { type = number }
-variable "java_rce_query_action" { type = string }
-variable "java_rce_query_preview" {
-  type    = bool
-  default = true
-}
-variable "java_rce_query_description" { type = string }
-variable "java_rce_query_expression" { type = string }
-
-variable "java_rce_header_priority" { type = number }
-variable "java_rce_header_action" { type = string }
-variable "java_rce_header_preview" {
-  type    = bool
-  default = true
-}
-variable "java_rce_header_description" { type = string }
-variable "java_rce_header_expression" { type = string }
+variable "java_rce_protection_description" { type = string }
+variable "java_rce_protection_expression" { type = string }
 
 variable "host_localhost_priority" { type = number }
 variable "host_localhost_action" { type = string }
@@ -761,14 +560,6 @@ variable "scanner_detection_preview" {
 variable "scanner_detection_description" { type = string }
 variable "scanner_detection_expression" { type = string }
 
-variable "lfi_priority" { type = number }
-variable "lfi_action" { type = string }
-variable "lfi_preview" {
-  type    = bool
-  default = true
-}
-variable "lfi_description" { type = string }
-variable "lfi_expression" { type = string }
 
 variable "invoice_ratelimit_priority" { type = number }
 variable "invoice_ratelimit_action" { type = string }
@@ -832,3 +623,30 @@ variable "ddos_rate_limit_preview" {
 }
 variable "ddos_rate_limit_description" { type = string }
 variable "ddos_rate_limit_expression" { type = string }
+
+variable "method_enforcement_priority" { type = number }
+variable "method_enforcement_action" { type = string }
+variable "method_enforcement_preview" {
+  type    = bool
+  default = true
+}
+variable "method_enforcement_description" { type = string }
+variable "method_enforcement_expression" { type = string }
+
+variable "cve_canary_priority" { type = number }
+variable "cve_canary_action" { type = string }
+variable "cve_canary_preview" {
+  type    = bool
+  default = true
+}
+variable "cve_canary_description" { type = string }
+variable "cve_canary_expression" { type = string }
+
+variable "loginotp_foreign_priority" { type = number }
+variable "loginotp_foreign_action" { type = string }
+variable "loginotp_foreign_preview" {
+  type    = bool
+  default = true
+}
+variable "loginotp_foreign_description" { type = string }
+variable "loginotp_foreign_expression" { type = string }

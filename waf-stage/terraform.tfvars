@@ -41,3 +41,15 @@ login_otp_expression       = "origin.region_code == 'IN' && request.path.contain
 login_otp_count            = 5
 login_otp_interval_sec     = 60
 login_otp_ban_duration_sec = 900
+
+method_enforcement_priority    = 60
+method_enforcement_action      = "allow"
+method_enforcement_preview     = true
+method_enforcement_description = "Method Enforcement"
+method_enforcement_expression  = "evaluatePreconfiguredWaf('methodenforcement-v33-stable')"
+
+cve_canary_priority    = 70
+cve_canary_action      = "allow"
+cve_canary_preview     = true
+cve_canary_description = "CVE Canary"
+cve_canary_expression  = "evaluatePreconfiguredExpr('cve-canary')"
