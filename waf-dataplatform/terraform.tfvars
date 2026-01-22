@@ -44,7 +44,7 @@ java_deserialization_description = "JavaDeserialization - COUNT"
 java_deserialization_expression  = "evaluatePreconfiguredWaf('java-v33-stable')"
 
 
-profind_method_priority    = 60
+profind_method_priority    = 55
 profind_method_action      = "allow"
 profind_method_preview     = true
 profind_method_description = "Block PROPFIND HTTP method - COUNT"
