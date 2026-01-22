@@ -66,23 +66,6 @@ resource "google_compute_security_policy_rule" "java_deserialization" {
   }
 }
 
-###########################################
-# 4. Host_localhost_HEADER
-############################################
-resource "google_compute_security_policy_rule" "localhost_header" {
-  count           = var.enable_localhost_header ? 1 : 0
-  security_policy = google_compute_security_policy.dataplatform-policy.name
-  priority        = var.localhost_header_priority
-  action          = var.localhost_HEADER_action
-  preview         = var.localhost_header_preview
-  description     = var.localhost_header_description
-
-  match {
-    expr {
-      expression = var.localhost_header_expression
-    }
-  }
-}
 
 ###########################################
 # 5. PROPFIND_METHOD
@@ -102,6 +85,9 @@ resource "google_compute_security_policy_rule" "profind_method" {
   }
 }
 
+###########################################
+# 6-14. LFI Protection
+###########################################
 ###########################################
 # 6-14. LFI Protection
 ###########################################
@@ -210,19 +196,19 @@ resource "google_compute_security_policy_rule" "sizerestrictions_uripath" {
 }
 
 ############################################
-# 12. EC2MetaDataSSRF
+# 12. Protocol Attack Protection (Merged)
 ############################################
-resource "google_compute_security_policy_rule" "ec2_metadata_ssrf" {
-  count           = var.enable_ec2_metadata_ssrf ? 1 : 0
+resource "google_compute_security_policy_rule" "protocol_attack_protection" {
+  count           = var.enable_protocol_attack_protection ? 1 : 0
   security_policy = google_compute_security_policy.dataplatform-policy.name
-  priority        = var.ec2_metadata_ssrf_priority
-  action          = var.ec2_metadata_ssrf_action
-  preview         = var.ec2_metadata_ssrf_preview
-  description     = var.ec2_metadata_ssrf_description
+  priority        = var.protocol_attack_protection_priority
+  action          = var.protocol_attack_protection_action
+  preview         = var.protocol_attack_protection_preview
+  description     = var.protocol_attack_protection_description
 
   match {
     expr {
-      expression = var.ec2_metadata_ssrf_expression
+      expression = var.protocol_attack_protection_expression
     }
   }
 }
@@ -231,20 +217,6 @@ resource "google_compute_security_policy_rule" "ec2_metadata_ssrf" {
 ############################################
 # 15. GenericRFI
 ############################################
-resource "google_compute_security_policy_rule" "generic_rfi" {
-  count           = var.enable_generic_rfi ? 1 : 0
-  security_policy = google_compute_security_policy.dataplatform-policy.name
-  priority        = var.generic_rfi_priority
-  action          = var.generic_rfi_action
-  preview         = var.generic_rfi_preview
-  description     = var.generic_rfi_description
-
-  match {
-    expr {
-      expression = var.generic_rfi_expression
-    }
-  }
-}
 
 ############################################
 # 16. CrossSiteScripting

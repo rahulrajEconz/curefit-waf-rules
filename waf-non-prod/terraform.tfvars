@@ -208,35 +208,11 @@ ec2_ssrf_preview     = true
 ec2_ssrf_description = "Block requests triggering EC2 Metadata SSRF"
 ec2_ssrf_expression  = "evaluatePreconfiguredWaf('protocolattack-v33-stable')"
 
-generic_lfi_priority    = 320
-generic_lfi_action      = "deny(403)"
-generic_lfi_preview     = true
-generic_lfi_description = "Block Generic LFI attacks in query arguments"
-generic_lfi_expression  = "evaluatePreconfiguredWaf('lfi-v33-stable')"
-
-generic_lfi_uripath_priority    = 330
-generic_lfi_uripath_action      = "deny(403)"
-generic_lfi_uripath_preview     = true
-generic_lfi_uripath_description = "Block Generic LFI attacks in URI path"
-generic_lfi_uripath_expression  = "evaluatePreconfiguredWaf('lfi-v33-stable')"
-
-generic_lfi_body_priority    = 340
-generic_lfi_body_action      = "deny(403)"
-generic_lfi_body_preview     = true
-generic_lfi_body_description = "Block Generic LFI attacks in request body"
-generic_lfi_body_expression  = "evaluatePreconfiguredWaf('lfi-v33-stable')"
-
-restricted_ext_uripath_priority    = 350
-restricted_ext_uripath_action      = "deny(403)"
-restricted_ext_uripath_preview     = true
-restricted_ext_uripath_description = "Block restricted file extensions in URI path"
-restricted_ext_uripath_expression  = "evaluatePreconfiguredWaf('lfi-v33-stable')"
-
-restricted_ext_query_priority    = 360
-restricted_ext_query_action      = "deny(403)"
-restricted_ext_query_preview     = true
-restricted_ext_query_description = "Block restricted file extensions in query arguments"
-restricted_ext_query_expression  = "evaluatePreconfiguredWaf('lfi-v33-stable')"
+lfi_protection_priority    = 320
+lfi_protection_action      = "deny(403)"
+lfi_protection_preview     = true
+lfi_protection_description = "Global LFI Protection (Merged)"
+lfi_protection_expression  = "evaluatePreconfiguredWaf('lfi-v33-stable')"
 
 rfi_protection_priority    = 370
 rfi_protection_action      = "deny(403)"
@@ -286,11 +262,6 @@ scanner_detection_preview     = true
 scanner_detection_description = "Block scanner activity"
 scanner_detection_expression  = "evaluatePreconfiguredWaf('scannerdetection-v33-stable')"
 
-lfi_priority    = 570
-lfi_action      = "deny(403)"
-lfi_preview     = true
-lfi_description = "Block LFI Root"
-lfi_expression  = "evaluatePreconfiguredWaf('lfi-v33-stable')"
 
 invoice_ratelimit_priority    = 580
 invoice_ratelimit_action      = "deny(403)"

@@ -151,14 +151,8 @@ variable "enable_ec2_ssrf" {
   default     = true
 }
 
-variable "enable_generic_lfi" {
-  description = "Enable Generic LFI rules"
-  type        = bool
-  default     = true
-}
-
-variable "enable_restricted_ext" {
-  description = "Enable Restricted Extensions rules"
+variable "enable_lfi_protection" {
+  description = "Enable Consolidated LFI Protection rules"
   type        = bool
   default     = true
 }
@@ -211,11 +205,6 @@ variable "enable_scanner_detection" {
   default     = true
 }
 
-variable "enable_lfi_root" {
-  description = "Enable LFI Root rule"
-  type        = bool
-  default     = true
-}
 
 variable "enable_invoice_ratelimit" {
   description = "Enable Invoice Ratelimit rule"
@@ -472,50 +461,14 @@ variable "ec2_ssrf_preview" {
 variable "ec2_ssrf_description" { type = string }
 variable "ec2_ssrf_expression" { type = string }
 
-variable "generic_lfi_priority" { type = number }
-variable "generic_lfi_action" { type = string }
-variable "generic_lfi_preview" {
+variable "lfi_protection_priority" { type = number }
+variable "lfi_protection_action" { type = string }
+variable "lfi_protection_preview" {
   type    = bool
   default = true
 }
-variable "generic_lfi_description" { type = string }
-variable "generic_lfi_expression" { type = string }
-
-variable "generic_lfi_uripath_priority" { type = number }
-variable "generic_lfi_uripath_action" { type = string }
-variable "generic_lfi_uripath_preview" {
-  type    = bool
-  default = true
-}
-variable "generic_lfi_uripath_description" { type = string }
-variable "generic_lfi_uripath_expression" { type = string }
-
-variable "generic_lfi_body_priority" { type = number }
-variable "generic_lfi_body_action" { type = string }
-variable "generic_lfi_body_preview" {
-  type    = bool
-  default = true
-}
-variable "generic_lfi_body_description" { type = string }
-variable "generic_lfi_body_expression" { type = string }
-
-variable "restricted_ext_uripath_priority" { type = number }
-variable "restricted_ext_uripath_action" { type = string }
-variable "restricted_ext_uripath_preview" {
-  type    = bool
-  default = true
-}
-variable "restricted_ext_uripath_description" { type = string }
-variable "restricted_ext_uripath_expression" { type = string }
-
-variable "restricted_ext_query_priority" { type = number }
-variable "restricted_ext_query_action" { type = string }
-variable "restricted_ext_query_preview" {
-  type    = bool
-  default = true
-}
-variable "restricted_ext_query_description" { type = string }
-variable "restricted_ext_query_expression" { type = string }
+variable "lfi_protection_description" { type = string }
+variable "lfi_protection_expression" { type = string }
 
 variable "rfi_protection_priority" { type = number }
 variable "rfi_protection_action" { type = string }
@@ -589,14 +542,6 @@ variable "scanner_detection_preview" {
 variable "scanner_detection_description" { type = string }
 variable "scanner_detection_expression" { type = string }
 
-variable "lfi_priority" { type = number }
-variable "lfi_action" { type = string }
-variable "lfi_preview" {
-  type    = bool
-  default = true
-}
-variable "lfi_description" { type = string }
-variable "lfi_expression" { type = string }
 
 variable "invoice_ratelimit_priority" { type = number }
 variable "invoice_ratelimit_action" { type = string }

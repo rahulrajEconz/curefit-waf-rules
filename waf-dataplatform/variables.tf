@@ -31,11 +31,6 @@ variable "enable_java_deserialization" {
   default     = true
 }
 
-variable "enable_localhost_header" {
-  description = "Enable Localhost Header rule"
-  type        = bool
-  default     = true
-}
 
 variable "enable_profind_method" {
   description = "Enable PROPFIND Method rule"
@@ -79,8 +74,8 @@ variable "enable_sizerestrictions_uripath" {
   default     = true
 }
 
-variable "enable_ec2_metadata_ssrf" {
-  description = "Enable EC2 Metadata SSRF rule"
+variable "enable_protocol_attack_protection" {
+  description = "Enable Consolidated Protocol Attack Protection"
   type        = bool
   default     = true
 }
@@ -129,14 +124,6 @@ variable "java_deserialization_preview" {
 variable "java_deserialization_description" { type = string }
 variable "java_deserialization_expression" { type = string }
 
-variable "localhost_header_priority" { type = number }
-variable "localhost_HEADER_action" { type = string }
-variable "localhost_header_preview" {
-  type    = bool
-  default = true
-}
-variable "localhost_header_description" { type = string }
-variable "localhost_header_expression" { type = string }
 
 variable "profind_method_priority" { type = number }
 variable "profind_method_action" { type = string }
@@ -201,14 +188,14 @@ variable "sizerestrictions_uripath_preview" {
 variable "sizerestrictions_uripath_description" { type = string }
 variable "sizerestrictions_uripath_expression" { type = string }
 
-variable "ec2_metadata_ssrf_priority" { type = number }
-variable "ec2_metadata_ssrf_action" { type = string }
-variable "ec2_metadata_ssrf_preview" {
+variable "protocol_attack_protection_priority" { type = number }
+variable "protocol_attack_protection_action" { type = string }
+variable "protocol_attack_protection_preview" {
   type    = bool
   default = true
 }
-variable "ec2_metadata_ssrf_description" { type = string }
-variable "ec2_metadata_ssrf_expression" { type = string }
+variable "protocol_attack_protection_description" { type = string }
+variable "protocol_attack_protection_expression" { type = string }
 
 
 variable "generic_rfi_priority" { type = number }

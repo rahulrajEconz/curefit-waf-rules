@@ -43,11 +43,6 @@ java_deserialization_preview     = true
 java_deserialization_description = "JavaDeserialization - COUNT"
 java_deserialization_expression  = "evaluatePreconfiguredWaf('java-v33-stable')"
 
-localhost_header_priority    = 50
-localhost_HEADER_action      = "allow"
-localhost_header_preview     = true
-localhost_header_description = "Block localhost Host header - COUNT"
-localhost_header_expression  = "evaluatePreconfiguredWaf('protocolattack-v33-stable')"
 
 profind_method_priority    = 60
 profind_method_action      = "allow"
@@ -55,11 +50,6 @@ profind_method_preview     = true
 profind_method_description = "Block PROPFIND HTTP method - COUNT"
 profind_method_expression  = "evaluatePreconfiguredWaf('methodenforcement-v33-stable')"
 
-lfi_protection_priority    = 70
-lfi_protection_action      = "allow"
-lfi_protection_preview     = true
-lfi_protection_description = "Global LFI Protection (Merged)"
-lfi_protection_expression  = "evaluatePreconfiguredWaf('lfi-v33-stable')"
 
 reactjs_rce_body_priority    = 90
 reactjs_rce_body_action      = "allow"
@@ -91,18 +81,21 @@ sizerestrictions_uripath_preview     = true
 sizerestrictions_uripath_description = "Block requests with overly long URI paths"
 sizerestrictions_uripath_expression  = "size(request.path) > 2048"
 
-ec2_metadata_ssrf_priority    = 160
-ec2_metadata_ssrf_action      = "allow"
-ec2_metadata_ssrf_preview     = true
-ec2_metadata_ssrf_description = "Block SSRF attempts targeting EC2 metadata"
-ec2_metadata_ssrf_expression  = "evaluatePreconfiguredWaf('protocolattack-v33-stable')"
+protocol_attack_protection_priority    = 160
+protocol_attack_protection_action      = "allow"
+protocol_attack_protection_preview     = true
+protocol_attack_protection_description = "Global Protocol Attack Protection (Merged)"
+protocol_attack_protection_expression  = "evaluatePreconfiguredWaf('protocolattack-v33-stable')"
 
 
-generic_rfi_priority    = 190
-generic_rfi_action      = "allow"
-generic_rfi_preview     = true
-generic_rfi_description = "Block Remote File Inclusion attempts"
-generic_rfi_expression  = "evaluatePreconfiguredWaf('rfi-v33-stable')"
+lfi_protection_priority    = 70
+lfi_protection_action      = "allow"
+lfi_protection_preview     = true
+lfi_protection_description = "Global LFI Protection (Merged)"
+lfi_protection_expression  = "evaluatePreconfiguredWaf('lfi-v33-stable')"
+generic_rfi_preview        = true
+generic_rfi_description    = "Block Remote File Inclusion attempts"
+generic_rfi_expression     = "evaluatePreconfiguredWaf('rfi-v33-stable')"
 
 cross_site_scripting_priority    = 200
 cross_site_scripting_action      = "allow"

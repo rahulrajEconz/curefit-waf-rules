@@ -313,7 +313,7 @@ resource "google_compute_security_policy_rule" "geo_blacklist_cultsport" {
   description     = var.geo_blacklist_cultsport_description
   match {
     expr {
-      expression = "['AO', 'AM', 'AZ', 'CN', 'PS', 'RU', 'UA', 'HK'].contains(origin.region_code) && request.headers['host'] == 'cultsport.com'"
+      expression = "origin.region_code.matches('AO|AM|AZ|CN|PS|RU|UA|HK') && request.headers['host'] == 'cultsport.com'"
     }
   }
 }
@@ -452,77 +452,18 @@ resource "google_compute_security_policy_rule" "ec2_ssrf" {
 }
 
 ###########################################
-# 21-23. Generic LFI attacks – CEL
+# 21. Consolidated LFI Protection – CEL
 ###########################################
-resource "google_compute_security_policy_rule" "generic_lfi" {
-  count           = var.enable_generic_lfi ? 1 : 0
+resource "google_compute_security_policy_rule" "lfi_protection" {
+  count           = var.enable_lfi_protection ? 1 : 0
   security_policy = google_compute_security_policy.prod-webacl.name
-  priority        = var.generic_lfi_priority
-  action          = var.generic_lfi_action
-  preview         = var.generic_lfi_preview
-  description     = var.generic_lfi_description
+  priority        = var.lfi_protection_priority
+  action          = var.lfi_protection_action
+  preview         = var.lfi_protection_preview
+  description     = var.lfi_protection_description
   match {
     expr {
-      expression = var.generic_lfi_expression
-    }
-  }
-}
-
-resource "google_compute_security_policy_rule" "generic_lfi_uripath" {
-  count           = var.enable_generic_lfi ? 1 : 0
-  security_policy = google_compute_security_policy.prod-webacl.name
-  priority        = var.generic_lfi_uripath_priority
-  action          = var.generic_lfi_uripath_action
-  preview         = var.generic_lfi_uripath_preview
-  description     = var.generic_lfi_uripath_description
-  match {
-    expr {
-      expression = var.generic_lfi_uripath_expression
-    }
-  }
-}
-
-resource "google_compute_security_policy_rule" "generic_lfi_body" {
-  count           = var.enable_generic_lfi ? 1 : 0
-  security_policy = google_compute_security_policy.prod-webacl.name
-  priority        = var.generic_lfi_body_priority
-  action          = var.generic_lfi_body_action
-  preview         = var.generic_lfi_body_preview
-  description     = var.generic_lfi_body_description
-  match {
-    expr {
-      expression = var.generic_lfi_body_expression
-    }
-  }
-}
-
-###########################################
-# 24-25. Restricted File Extensions – CEL
-###########################################
-resource "google_compute_security_policy_rule" "restricted_ext_uripath" {
-  count           = var.enable_restricted_ext ? 1 : 0
-  security_policy = google_compute_security_policy.prod-webacl.name
-  priority        = var.restricted_ext_uripath_priority
-  action          = var.restricted_ext_uripath_action
-  preview         = var.restricted_ext_uripath_preview
-  description     = var.restricted_ext_uripath_description
-  match {
-    expr {
-      expression = var.restricted_ext_uripath_expression
-    }
-  }
-}
-
-resource "google_compute_security_policy_rule" "restricted_ext_query" {
-  count           = var.enable_restricted_ext ? 1 : 0
-  security_policy = google_compute_security_policy.prod-webacl.name
-  priority        = var.restricted_ext_query_priority
-  action          = var.restricted_ext_query_action
-  preview         = var.restricted_ext_query_preview
-  description     = var.restricted_ext_query_description
-  match {
-    expr {
-      expression = var.restricted_ext_query_expression
+      expression = var.lfi_protection_expression
     }
   }
 }
@@ -651,22 +592,6 @@ resource "google_compute_security_policy_rule" "scanner_detection" {
   }
 }
 
-###########################################
-# 46. LFI Root – CEL
-###########################################
-resource "google_compute_security_policy_rule" "lfi_root" {
-  count           = var.enable_lfi_root ? 1 : 0
-  security_policy = google_compute_security_policy.prod-webacl.name
-  priority        = var.lfi_priority
-  action          = var.lfi_action
-  preview         = var.lfi_preview
-  description     = var.lfi_description
-  match {
-    expr {
-      expression = var.lfi_expression
-    }
-  }
-}
 
 ###########################################
 # 47. Invoice-Ratelimit – CEL
